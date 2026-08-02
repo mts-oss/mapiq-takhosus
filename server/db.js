@@ -66,6 +66,8 @@ const Student = mongoose.model('Student', studentSchema);
 const Attendance = mongoose.model('Attendance', attendanceSchema);
 
 async function connectDatabase() {
+  if (mongoose.connection.readyState >= 1) return;
+  
   const uri = process.env.MONGODB_URI;
   if (!uri) {
     console.warn("⚠️ MONGODB_URI environment variable is not defined!");
@@ -145,6 +147,7 @@ async function initDatabase() {
 }
 
 module.exports = {
+  connectDatabase,
   initDatabase,
   User,
   Class,

@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { initDatabase } = require('./db');
+const { initDatabase, connectDatabase } = require('./db');
 const authModule = require('./routes/auth');
 const apiRouter = require('./routes/api');
 
@@ -28,6 +28,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// Serverless DB Connection Middleware
+app.use(async (req, res, next) => {
+  try {
+    await connectDatabase();
+    next();
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal terhubung ke Database.' });
+  }
+});
+
+
 // Register routes
 app.use('/api/auth', authModule.router);
 app.use('/api', apiRouter);
@@ -43,11 +54,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Terjadi kesalahan sistem internal pada server.' });
 });
 
-// Boot Server
+// Boot Server (Only in local development, Vercel uses module.exports)
 async function startServer() {
   try {
     console.log('Menghubungkan ke database...');
-    await initDatabase();
+    await initDatabase(); // Init Database seeds initial data if empty
     
     app.listen(PORT, () => {
       console.log(`=================================================`);
@@ -63,4 +74,9 @@ async function startServer() {
   }
 }
 
-startServer();
+if (process.env.NODE_ENV !== 'production') {
+  startServer();
+}
+
+// Export for Vercel Serverless
+module.exports = app;
