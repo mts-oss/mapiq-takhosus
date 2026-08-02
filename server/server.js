@@ -28,10 +28,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serverless DB Connection Middleware
+// Serverless DB Connection & Seeding Middleware
 app.use(async (req, res, next) => {
   try {
-    await connectDatabase();
+    await initDatabase();
     next();
   } catch (error) {
     res.status(500).json({ message: 'Gagal terhubung ke Database.' });

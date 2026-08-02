@@ -85,8 +85,12 @@ async function connectDatabase() {
   }
 }
 
+let isSeeded = false;
+
 async function initDatabase() {
   await connectDatabase();
+  
+  if (isSeeded) return;
   
   // Seed Database if Users collection is empty
   const userCount = await User.countDocuments();
@@ -144,6 +148,7 @@ async function initDatabase() {
 
     console.log('✅ Seeding complete.');
   }
+  isSeeded = true;
 }
 
 module.exports = {
