@@ -257,7 +257,11 @@ export default function Attendance() {
 
   const filteredStudents = students
     .filter((s) => s.classId === selectedClass)
-    .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }));
+    .sort((a, b) => {
+      const idA = String(a.id || a._id || '');
+      const idB = String(b.id || b._id || '');
+      return idA.localeCompare(idB, undefined, { numeric: true, sensitivity: 'base' });
+    });
 
   return (
     <div className="page-container">
