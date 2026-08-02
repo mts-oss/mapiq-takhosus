@@ -41,8 +41,24 @@ router.post('/login', async (req, res) => {
   }
 
   try {
-    // Find user in MongoDB
-    const user = await User.findOne({ username: username.toLowerCase().trim() });
+    const cleanUsername = username.toLowerCase().trim();
+    
+    // 1. Find user in MongoDB
+    let user = await User.findOne({ username: cleanUsername });
+
+    // 2. If user not found, check if username matches a Teacher ID (e.g. G001, G002, etc.)
+    if (!user) {
+      const teacher = await Teacher.findOne({ _id: { $regex: new RegExp(`^${cleanUsername}$`, 'i') } });
+      if (teacher) {
+        const defaultPasswordHash = await bcrypt.hash('guru123', 10);
+        user = await User.create({
+          username: teacher._id.toLowerCase(),
+          passwordHash: defaultPasswordHash,
+          role: 'guru',
+          teacherId: teacher._id
+        });
+      }
+    }
 
     if (!user) {
       return res.status(401).json({ message: 'Username atau password salah.' });

@@ -86,11 +86,24 @@ router.post('/teachers', requireAdmin, async (req, res) => {
   if (!name || !subject) return res.status(400).json({ message: 'Nama dan mapel wajib diisi.' });
 
   try {
+    const teacherId = id || `G${Date.now()}`;
     const newTeacher = await Teacher.create({ 
-      _id: id || `G${Date.now()}`, 
+      _id: teacherId, 
       name, 
       subject 
     });
+
+    // Auto-create User login for this teacher
+    const bcrypt = require('bcryptjs');
+    const defaultPasswordHash = await bcrypt.hash('guru123', 10);
+    const { User } = require('../db');
+    await User.create({
+      username: teacherId.toLowerCase(),
+      passwordHash: defaultPasswordHash,
+      role: 'guru',
+      teacherId: teacherId
+    }).catch(err => console.log('User account already exists or error:', err.message));
+
     res.status(201).json(newTeacher);
   } catch (error) {
     res.status(500).json({ message: 'Gagal menambah pengajar.' });
@@ -118,6 +131,11 @@ router.delete('/teachers/:id', requireAdmin, async (req, res) => {
   try {
     const deleted = await Teacher.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Pengajar tidak ditemukan.' });
+    
+    // Also delete user account
+    const { User } = require('../db');
+    await User.deleteMany({ $or: [{ teacherId: req.params.id }, { username: req.params.id.toLowerCase() }] });
+
     res.json({ message: 'Pengajar berhasil dihapus.' });
   } catch (error) {
     res.status(500).json({ message: 'Gagal menghapus data pengajar.' });

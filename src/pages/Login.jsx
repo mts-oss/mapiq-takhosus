@@ -132,9 +132,9 @@ export default function Login({ onLoginSuccess }) {
 
           {/* Helper details for testing */}
           <div style={{ marginTop: 'var(--spacing-lg)', borderTop: '1px solid var(--border-color)', paddingTop: 'var(--spacing-md)', fontSize: '11px', color: 'var(--text-muted)', textAlign: 'center' }}>
-            <p style={{ fontWeight: 600, marginBottom: '2px' }}>Akun Uji Coba:</p>
+            <p style={{ fontWeight: 600, marginBottom: '2px' }}>Akun Login:</p>
             <p>Admin: <strong>admin</strong> / password: <strong>admin123</strong></p>
-            <p>Guru: <strong>ustadzfauzi</strong> / password: <strong>guru123</strong></p>
+            <p>Guru: <strong>ID Pengajar (misal: G001, G002)</strong> / password: <strong>guru123</strong></p>
           </div>
         </div>
       </div>
