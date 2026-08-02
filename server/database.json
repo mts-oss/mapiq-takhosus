@@ -1,0 +1,361 @@
+{
+  "classes": [
+    {
+      "id": "K001",
+      "name": "Kelas 10-A Takhosus",
+      "description": "Program Tahfidz & Kitab Kuning Kelas 10"
+    },
+    {
+      "id": "K002",
+      "name": "Kelas 11-A Takhosus",
+      "description": "Program Tahfidz & Kitab Kuning Kelas 11"
+    },
+    {
+      "id": "K003",
+      "name": "Kelas 12-A Takhosus",
+      "description": "Program Tahfidz & Kitab Kuning Kelas 12"
+    }
+  ],
+  "teachers": [
+    {
+      "id": "G001",
+      "name": "Ustadz Ahmad Fauzi, Lc.",
+      "subject": "Fikih & Ushul Fikih"
+    },
+    {
+      "id": "G002",
+      "name": "Ustadz M. Ridho, S.Ag.",
+      "subject": "Tahfidz Al-Qur'an"
+    },
+    {
+      "id": "G003",
+      "name": "Ustadz Yusuf Mansur, M.Pd.I.",
+      "subject": "Tafsir Jalalain"
+    },
+    {
+      "id": "G004",
+      "name": "Ustadzah Khadijah, S.S.",
+      "subject": "Bahasa Arab & Nahwu Shorof"
+    }
+  ],
+  "students": [
+    {
+      "id": "S001",
+      "name": "Muhammad Ali Al-Ghifari",
+      "classId": "K001"
+    },
+    {
+      "id": "S002",
+      "name": "Achmad Zaki Yamani",
+      "classId": "K001"
+    },
+    {
+      "id": "S003",
+      "name": "Fatimah Azzahra",
+      "classId": "K001"
+    },
+    {
+      "id": "S004",
+      "name": "Aisyah Humaira",
+      "classId": "K001"
+    },
+    {
+      "id": "S005",
+      "name": "Abdul Rahman Wahid",
+      "classId": "K001"
+    },
+    {
+      "id": "S006",
+      "name": "Zainuddin Abdillah",
+      "classId": "K001"
+    },
+    {
+      "id": "S007",
+      "name": "Habib Rizky Al-Attas",
+      "classId": "K002"
+    },
+    {
+      "id": "S008",
+      "name": "Lukman Hakim",
+      "classId": "K002"
+    },
+    {
+      "id": "S009",
+      "name": "Maryom Hasanah",
+      "classId": "K002"
+    },
+    {
+      "id": "S010",
+      "name": "Farhan Muhammad",
+      "classId": "K002"
+    },
+    {
+      "id": "S011",
+      "name": "Siti Aminah",
+      "classId": "K002"
+    },
+    {
+      "id": "S012",
+      "name": "Ahmad Rafiq",
+      "classId": "K003"
+    },
+    {
+      "id": "S013",
+      "name": "Husein Ja'far",
+      "classId": "K003"
+    },
+    {
+      "id": "S014",
+      "name": "Nayla Shofia",
+      "classId": "K003"
+    },
+    {
+      "id": "S015",
+      "name": "Yusuf Ibrahim",
+      "classId": "K003"
+    },
+    {
+      "id": "S016",
+      "name": "Rahmat Hidayat",
+      "classId": "K003"
+    }
+  ],
+  "users": [
+    {
+      "id": "U001",
+      "username": "admin",
+      "passwordHash": "$2a$10$lVCDJrd66NbeA.AKkM3WNOtBMcsgk.yitTwrwZKWifN.Jy4pVtDHS",
+      "role": "admin",
+      "teacherId": null
+    },
+    {
+      "id": "U002",
+      "username": "ustadzfauzi",
+      "passwordHash": "$2a$10$LAlfA2P7GYbc4aem2iMe6.VWdBi62rBuwESkcrdzOIvciehdSirpG",
+      "role": "guru",
+      "teacherId": "G001"
+    },
+    {
+      "id": "U003",
+      "username": "ustadzridho",
+      "passwordHash": "$2a$10$.bZh/qXzky5P19a5L6LcGuJW0A57UBLkTmhg6OxCCychz4VF3PNue",
+      "role": "guru",
+      "teacherId": "G002"
+    }
+  ],
+  "attendance": [
+    {
+      "date": "2026-07-30",
+      "classId": "K001",
+      "teacherId": "G001",
+      "subjectTopic": "Kitab Fathul Qorib - Bab Wudhu",
+      "journalSummary": "Membahas rukun wudhu secara terperinci serta syarat-syarat sahnya menurut madzhab Syafii.",
+      "records": [
+        {
+          "studentId": "S001",
+          "status": "H",
+          "star": true,
+          "note": "Sangat aktif bertanya bab niat wudhu"
+        },
+        {
+          "studentId": "S002",
+          "status": "H",
+          "star": true,
+          "note": "Lancar menjawab pertanyaan"
+        },
+        {
+          "studentId": "S003",
+          "status": "H",
+          "star": false,
+          "note": ""
+        },
+        {
+          "studentId": "S004",
+          "status": "I",
+          "star": false,
+          "note": "Izin keluarga (ke luar kota)"
+        },
+        {
+          "studentId": "S005",
+          "status": "A",
+          "star": false,
+          "note": "Tanpa keterangan"
+        },
+        {
+          "studentId": "S006",
+          "status": "H",
+          "star": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "classId": "K001",
+      "teacherId": "G002",
+      "subjectTopic": "Setoran Surah Al-Kahfi ayat 1-20",
+      "journalSummary": "Setoran rutin hafalan juz 15. Mayoritas lancar, tajwid perlu bimbingan khusus.",
+      "records": [
+        {
+          "studentId": "S001",
+          "status": "H",
+          "star": true,
+          "note": "Setoran lancar 2 halaman"
+        },
+        {
+          "studentId": "S002",
+          "status": "H",
+          "star": false,
+          "note": "Sedikit tersendat"
+        },
+        {
+          "studentId": "S003",
+          "status": "H",
+          "star": true,
+          "note": "Setoran sangat lancar, tajwid ممتاز"
+        },
+        {
+          "studentId": "S004",
+          "status": "H",
+          "star": false,
+          "note": "Kembali belajar"
+        },
+        {
+          "studentId": "S005",
+          "status": "A",
+          "star": false,
+          "note": "Tanpa keterangan (dua kali berturut-turut)"
+        },
+        {
+          "studentId": "S006",
+          "status": "S",
+          "star": false,
+          "note": "Sakit demam"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-01",
+      "classId": "K001",
+      "teacherId": "G004",
+      "subjectTopic": "Kitab Al-Ajrumiyah - Bab Kalam",
+      "journalSummary": "Membahas pengertian kalam, isim, fi'il, dan huruf beserta tanda-tandanya.",
+      "records": [
+        {
+          "studentId": "S001",
+          "status": "H",
+          "star": true,
+          "note": "Menjawab kuis i'rab kalam"
+        },
+        {
+          "studentId": "S002",
+          "status": "H",
+          "star": true,
+          "note": "Menjawab kuis i'rab isim"
+        },
+        {
+          "studentId": "S003",
+          "status": "H",
+          "star": true,
+          "note": "Aktif menjelaskan tanda huruf"
+        },
+        {
+          "studentId": "S004",
+          "status": "H",
+          "star": false,
+          "note": ""
+        },
+        {
+          "studentId": "S005",
+          "status": "H",
+          "star": false,
+          "note": "Hadir terlambat, sudah diperingatkan"
+        },
+        {
+          "studentId": "S006",
+          "status": "H",
+          "star": false,
+          "note": "Kembali hadir setelah sakit"
+        }
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "classId": "K002",
+      "teacherId": "G003",
+      "subjectTopic": "Tafsir QS Al-Baqarah ayat 183",
+      "journalSummary": "Mengkaji asbabun nuzul kewajiban puasa ramadhan dan hikmah spiritualnya.",
+      "records": [
+        {
+          "studentId": "S007",
+          "status": "H",
+          "star": true,
+          "note": "Membaca kitab tafsir dengan lancar"
+        },
+        {
+          "studentId": "S008",
+          "status": "H",
+          "star": false,
+          "note": ""
+        },
+        {
+          "studentId": "S009",
+          "status": "I",
+          "star": false,
+          "note": "Sakit gigi"
+        },
+        {
+          "studentId": "S010",
+          "status": "H",
+          "star": true,
+          "note": "Aktif berdiskusi hikmah shaum"
+        },
+        {
+          "studentId": "S011",
+          "status": "A",
+          "star": false,
+          "note": "Alpa tanpa surat"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-01",
+      "classId": "K003",
+      "teacherId": "G001",
+      "subjectTopic": "Bab Amar dan Nahi",
+      "journalSummary": "Pengertian tuntutan melakukan (amar) dan larangan (nahi) beserta qaidah-qaidahnya.",
+      "records": [
+        {
+          "studentId": "S012",
+          "status": "H",
+          "star": true,
+          "note": "Sangat kritis berargumen qaidah amar"
+        },
+        {
+          "studentId": "S013",
+          "status": "H",
+          "star": true,
+          "note": "Mampu menyebutkan contoh dalil nahi"
+        },
+        {
+          "studentId": "S014",
+          "status": "H",
+          "star": true,
+          "note": "Sangat aktif menyimpulkan materi"
+        },
+        {
+          "studentId": "S015",
+          "status": "A",
+          "star": false,
+          "note": "Bolos jam pelajaran"
+        },
+        {
+          "studentId": "S016",
+          "status": "H",
+          "star": false,
+          "note": ""
+        }
+      ]
+    }
+  ]
+}
