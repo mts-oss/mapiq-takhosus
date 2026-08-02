@@ -131,7 +131,7 @@ router.delete('/teachers/:id', requireAdmin, async (req, res) => {
 
 router.get('/students', async (req, res) => {
   try {
-    const students = await Student.find().sort('name');
+    const students = await Student.find().sort('_id');
     res.json(students);
   } catch (error) {
     res.status(500).json({ message: 'Gagal mengambil data siswa.' });
@@ -280,7 +280,7 @@ router.get('/reports/recap', async (req, res) => {
   if (!classId || !startDate || !endDate) return res.status(400).json({ message: 'Filter kelas dan rentang tanggal wajib diisi.' });
 
   try {
-    const classStudents = await Student.find({ classId }).sort('name');
+    const classStudents = await Student.find({ classId }).sort('_id');
     const logs = await Attendance.find({ 
       classId, 
       date: { $gte: startDate, $lte: endDate } 

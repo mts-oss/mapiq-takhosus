@@ -255,7 +255,9 @@ export default function Attendance() {
     setTimeout(() => setShowSuccessToast(false), 3000);
   };
 
-  const filteredStudents = students.filter((s) => s.classId === selectedClass);
+  const filteredStudents = students
+    .filter((s) => s.classId === selectedClass)
+    .sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }));
 
   return (
     <div className="page-container">

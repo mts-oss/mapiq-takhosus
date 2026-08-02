@@ -199,7 +199,7 @@ export default function MasterData() {
     return s.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
            s.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
            className.toLowerCase().includes(searchTerm.toLowerCase());
-  });
+  }).sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' }));
 
   const filteredTeachers = teachers.filter(t => 
     t.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
