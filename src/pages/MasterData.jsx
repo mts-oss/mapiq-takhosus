@@ -49,6 +49,32 @@ export default function MasterData() {
   const [previewData, setPreviewData] = useState([]);
   const [uploadError, setUploadError] = useState('');
 
+  // Checkbox selection state for bulk actions
+  const [selectedStudentIds, setSelectedStudentIds] = useState([]);
+
+  const handleSelectAllStudents = (e) => {
+    if (e.target.checked) {
+      setSelectedStudentIds(filteredStudents.map(s => s.id));
+    } else {
+      setSelectedStudentIds([]);
+    }
+  };
+
+  const handleSelectStudent = (id) => {
+    setSelectedStudentIds(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleBulkDeleteStudents = async () => {
+    if (confirm(`Apakah Anda yakin ingin menghapus ${selectedStudentIds.length} siswa yang dicentang?`)) {
+      for (const id of selectedStudentIds) {
+        await deleteStudent(id);
+      }
+      setSelectedStudentIds([]);
+    }
+  };
+
   // Excel template downloader
   const handleDownloadTemplate = () => {
     const templateRows = [
@@ -334,48 +360,78 @@ export default function MasterData() {
             
             {/* Siswa Table */}
             {activeSubTab === 'siswa' && (
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>ID Siswa</th>
-                    <th>Nama Lengkap</th>
-                    <th>Kelas</th>
-                    <th style={{ textAlign: 'right' }}>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredStudents.length === 0 ? (
+              <>
+                {selectedStudentIds.length > 0 && (
+                  <div style={{ padding: '10px 16px', backgroundColor: 'var(--danger-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)' }}>
+                    <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--danger-text)' }}>
+                      {selectedStudentIds.length} Siswa Dicentang / Terpilih
+                    </span>
+                    <button onClick={handleBulkDeleteStudents} className="btn btn-sm btn-danger">
+                      <Trash2 size={14} /> Hapus {selectedStudentIds.length} Siswa Terpilih
+                    </button>
+                  </div>
+                )}
+                <table className="data-table">
+                  <thead>
                     <tr>
-                      <td colSpan="4" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Tidak ada data siswa ditemukan.</td>
+                      <th style={{ width: '40px', textAlign: 'center' }}>
+                        <input 
+                          type="checkbox" 
+                          checked={filteredStudents.length > 0 && selectedStudentIds.length === filteredStudents.length}
+                          onChange={handleSelectAllStudents}
+                          title="Centang Semua Siswa"
+                          style={{ cursor: 'pointer', width: '16px', height: '16px' }}
+                        />
+                      </th>
+                      <th>ID Siswa</th>
+                      <th>Nama Lengkap</th>
+                      <th>Kelas</th>
+                      <th style={{ textAlign: 'right' }}>Aksi</th>
                     </tr>
-                  ) : (
-                    filteredStudents.map(student => {
-                      const classObj = classes.find(c => c.id === student.classId);
-                      return (
-                        <tr key={student.id}>
-                          <td style={{ fontWeight: 600 }}>{student.id}</td>
-                          <td>{student.name}</td>
-                          <td>
-                            <span className="badge badge-hadir" style={{ textTransform: 'none' }}>
-                              {classObj ? classObj.name : 'Kelas Terhapus'}
-                            </span>
-                          </td>
-                          <td style={{ textAlign: 'right' }}>
-                            <div style={{ display: 'inline-flex', gap: '4px' }}>
-                              <button onClick={() => startEdit('siswa', student)} className="btn btn-icon btn-sm btn-outline" title="Edit">
-                                <Edit3 size={14} />
-                              </button>
-                              <button onClick={() => { if(confirm(`Hapus siswa ${student.name}?`)) deleteStudent(student.id); }} className="btn btn-icon btn-sm btn-danger" title="Hapus">
-                                <Trash2 size={14} />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filteredStudents.length === 0 ? (
+                      <tr>
+                        <td colSpan="5" style={{ textAlign: 'center', color: 'var(--text-muted)' }}>Tidak ada data siswa ditemukan.</td>
+                      </tr>
+                    ) : (
+                      filteredStudents.map(student => {
+                        const classObj = classes.find(c => c.id === student.classId);
+                        const isChecked = selectedStudentIds.includes(student.id);
+                        return (
+                          <tr key={student.id} style={{ backgroundColor: isChecked ? 'rgba(15, 81, 50, 0.05)' : 'transparent' }}>
+                            <td style={{ textAlign: 'center' }}>
+                              <input 
+                                type="checkbox" 
+                                checked={isChecked}
+                                onChange={() => handleSelectStudent(student.id)}
+                                style={{ cursor: 'pointer', width: '16px', height: '16px' }}
+                              />
+                            </td>
+                            <td style={{ fontWeight: 600 }}>{student.id}</td>
+                            <td>{student.name}</td>
+                            <td>
+                              <span className="badge badge-hadir" style={{ textTransform: 'none' }}>
+                                {classObj ? classObj.name : 'Kelas Terhapus'}
+                              </span>
+                            </td>
+                            <td style={{ textAlign: 'right' }}>
+                              <div style={{ display: 'inline-flex', gap: '4px' }}>
+                                <button onClick={() => startEdit('siswa', student)} className="btn btn-icon btn-sm btn-outline" title="Edit">
+                                  <Edit3 size={14} />
+                                </button>
+                                <button onClick={() => { if(confirm(`Hapus siswa ${student.name}?`)) deleteStudent(student.id); }} className="btn btn-icon btn-sm btn-danger" title="Hapus">
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </>
             )}
 
             {/* Pengajar Table */}

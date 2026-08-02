@@ -207,6 +207,21 @@ export default function Attendance() {
     }));
   };
 
+  // Handle Mark All Status (e.g., set all to Hadir)
+  const handleMarkAllStatus = (status) => {
+    const classStudents = students.filter((s) => s.classId === selectedClass);
+    setStudentRecords((prev) => {
+      const updated = { ...prev };
+      classStudents.forEach((student) => {
+        updated[student.id] = {
+          ...updated[student.id],
+          status
+        };
+      });
+      return updated;
+    });
+  };
+
   // Save changes
   const handleSave = (e) => {
     e.preventDefault();
@@ -328,14 +343,21 @@ export default function Attendance() {
 
         {/* Student Attendance List */}
         <div className="card">
-          <div className="card-header">
+          <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
             <h3 className="card-title">
               <Users size={18} />
               Daftar Siswa ({filteredStudents.length} orang)
             </h3>
-            <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-              Tekan <Star size={14} style={{ display: 'inline', color: 'var(--secondary-hover)' }} /> untuk keaktifan (Nilai 100)
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button 
+                type="button" 
+                onClick={() => handleMarkAllStatus('H')} 
+                className="btn btn-sm btn-outline"
+                style={{ borderColor: 'var(--success)', color: 'var(--success-text)', fontSize: '12px', fontWeight: 600 }}
+              >
+                <CheckCircle size={14} /> Centang Semua Hadir (H)
+              </button>
+            </div>
           </div>
           <div className="card-body" style={{ padding: 'var(--spacing-md) var(--spacing-sm)' }}>
             {filteredStudents.length === 0 ? (
